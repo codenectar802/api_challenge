@@ -50,3 +50,36 @@ Must have the correct authorzation hash.
 
 	When completed, if correct authorized, each of the movies in the 'favorite_movies' array will be deleted from the directors profile.
 	In addition if 'favorite_camera' is presented it will be changed to a blank value regardless of what is in the request.
+
+
+
+
+
+----------------------------------------------------------------------------------------------------
+DB SQL Statements
+
+CREATE TABLE `director` (
+  `id` int(11) NOT NULL,
+  `full_name` varchar(45) NOT NULL,
+  `dob` varchar(25) NOT NULL,
+  `favorite_camera` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `movie` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `fave_movies` (
+  `director_id` int(11) NOT NULL,
+  `movie_id` int(11) NOT NULL,
+  KEY `director_id` (`director_id`),
+  KEY `movie_id` (`movie_id`),
+  CONSTRAINT `fave_movies_ibfk_1` FOREIGN KEY (`director_id`) REFERENCES `director` (`id`),
+  CONSTRAINT `fave_movies_ibfk_2` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
